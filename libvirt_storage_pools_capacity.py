@@ -22,6 +22,7 @@ if __name__ == "__main__":
         result[pool] = dict()
         result[pool]["volumes"] = []
         result[pool]["total_capacity_gb"] = 0.0
+        result[pool]["total_allocation_gb"] = 0.0
         pool_obj = conn.storagePoolLookupByName(pool)
         for volume_name in pool_obj.listVolumes():
             volume_obj = pool_obj.storageVolLookupByName(volume_name)
@@ -31,6 +32,7 @@ if __name__ == "__main__":
             volume["capacity_gb"] = info[1] / 1073741824.0
             volume["allocation_gb"] = info[2] / 1073741824.0
             result[pool]["total_capacity_gb"] = result[pool]["total_capacity_gb"] + volume["capacity_gb"]
+            result[pool]["total_allocation_gb"] = result[pool]["total_allocation_gb"] + volume["allocation_gb"]
             result[pool]["volumes"].append(volume)
         
 
